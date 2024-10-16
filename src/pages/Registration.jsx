@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import zxcvbn from "zxcvbn";
 import logo from "../assets/Images/logo.png";
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 export default function Registration() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors },reset } = useForm();
+  const navigate=useNavigate()
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -44,8 +46,26 @@ export default function Registration() {
   const passwordStrength = getPasswordStrength(form.password); // Compute password strength
 
   const onSubmit = (data) => {
-    // Handle form submission logic here
-    console.log("Form Data:", data);
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        username: data.name, 
+        email: data.email,
+        password: data.password,
+      })
+    );
+    
+ 
+    toast.success("Registered successfully!"
+     );
+
+  
+    reset();
+
+  
+    setTimeout(() => {
+      navigate("/login");
+    }, 1000);
   };
 
   return (
@@ -237,6 +257,7 @@ export default function Registration() {
           </div>
         </div>
       </section>
+      
     </article>
   );
 }
