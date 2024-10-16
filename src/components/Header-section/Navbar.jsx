@@ -1,10 +1,9 @@
 import { FiUser } from "react-icons/fi";
 import { FiX } from "react-icons/fi";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/Images/logo.png";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import gsap from 'gsap'
-import { Appcontext } from "../../context/AppContext";
 const tl=gsap.timeline()
 
 const Navbar = () => {
@@ -13,14 +12,6 @@ const Navbar = () => {
   const [navLinkbgColor, setNavlinkbgColor] = useState(true);
   const [activeSection, setActiveSection] = useState("home"); // Track active section
   const sectionIds = ["home", "Service", "AboutUs", "ContactUs"]; // Section IDs
-  const {isLoggedIn,setIsLoggedIn}=useContext(Appcontext)
-  const navigate=useNavigate()
-  console.log(isLoggedIn)
-  function logoutHandler(){
-    setIsLoggedIn(false)
-    navigate("/home")
-    
-  }
 
   useEffect(() => {
     const tl = gsap.timeline();  // Initialize the timeline
@@ -205,14 +196,7 @@ const Navbar = () => {
                   CONTACT
                 </div>
               </a>
-              {isLoggedIn?<><div className="text-gray-dark"><button
-                    type="button"
-                    onClick={logoutHandler} 
-                    className=" flex flex-row justify-center items-center gap-2 font-bold rounded-xl text-md px-6 py-2 text-center bg-textWhite  transition-transform duration-300 hover:scale-110 hover:text-sky-500"
-                  >
-                    <FiUser className="text-2xl" />
-                    Log Out
-                  </button></div></>:<> <div className="text-gray-dark">
+              <div className="text-gray-dark">
                 <Link to="/login">
                   <button
                     type="button"
@@ -236,8 +220,7 @@ const Navbar = () => {
                     Register
                   </button>
                 </Link>
-              </div></>}
-             
+              </div>
             </div>
           </div>
         </div>
@@ -269,14 +252,7 @@ const Navbar = () => {
             </a>
           </div>
           <div className="flex md:order-2">
-            {isLoggedIn? <button
-            onClick={logoutHandler} 
-                type="button"
-                className="navbar3 hidden md:block font-bold rounded-lg text-lg px-4 py-2 text-center mr-3 md:mr-0 transition-transform duration-300 hover:scale-[1.1] hover:text-green"
-              >
-                Logout
-              </button>:<>
-              <Link to="/login">
+            <Link to="/login">
               <button
                 type="button"
                 className="navbar3 hidden md:block font-bold rounded-lg text-lg px-4 py-2 text-center mr-3 md:mr-0 transition-transform duration-300 hover:scale-[1.1] hover:text-green"
@@ -293,8 +269,6 @@ const Navbar = () => {
                 Register
               </button>
             </Link>
-              </>}
-           
           </div>
           <div className="hidden md:flex md:w-auto md:order-1" id="navbar-sticky">
             <ul className="flex flex-row lg:gap-10 md:gap-6 font-medium">

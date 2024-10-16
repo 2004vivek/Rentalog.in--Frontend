@@ -1,23 +1,31 @@
-import React, { useContext, useState } from "react"; // Import useState
+import React, { useState } from "react"; // Import useState
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/Images/logo.png";
-import { Appcontext } from "../context/AppContext";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
+
   const handleShowPassword = () => setShowPassword(!showPassword);
-  const {onSubmit,isLoggedIn}=useContext(Appcontext)
-console.log("status after login",isLoggedIn)
+
+  const onSubmit = (data) => {
+    console.log(data);
+    // Perform login logic here
+    // If successful, navigate to home
+    // navigate("/home");
+    reset(); // Reset form after successful submission
+  };
+
   return (
     <article className="flex flex-col justify-center h-[100vh] bg-primaryGreen/10 overflow-hidden">
-      <Navbar/>
+      <Navbar />
       <br className="hidden xl:block"></br>
       <section className="flex flex-row justify-baseline items-center">
         <div className="hidden w-full lg:flex lg:mt-12 flex-col lg:justify-start xl:justify-center xl:h-full">
