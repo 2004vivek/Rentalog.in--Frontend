@@ -69,7 +69,7 @@ export default function Registration() {
      );
 
   
-    reset();
+    // reset();
 
   
     setTimeout(() => {

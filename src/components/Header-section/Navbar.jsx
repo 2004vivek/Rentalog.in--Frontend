@@ -4,7 +4,10 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/Images/logo.png";
 import { useState, useEffect } from "react";
 import GoogleTranslate from "./GoogleTranslate";
+import { useNavigate } from "react-router-dom";
 import gsap from 'gsap'
+import { useContext } from "react";
+import { Appcontext } from "../../context/AppContext";
 const tl = gsap.timeline()
 
 const Navbar = () => {
@@ -13,7 +16,14 @@ const Navbar = () => {
     const [navLinkbgColor, setNavlinkbgColor] = useState(true);
     const [activeSection, setActiveSection] = useState("home"); // Track active section
     const sectionIds = ["home", "Service", "AboutUs", "ContactUs"]; // Section IDs
-
+    const {isLoggedIn,setIsLoggedIn}=useContext(Appcontext)
+  const navigate=useNavigate()
+  function logoutHandler(){
+    setIsLoggedIn(false)
+    navigate("/home")
+    
+  }
+  console.log(isLoggedIn)
     useEffect(() => {
         const tl = gsap.timeline();  // Initialize the timeline
   
@@ -194,31 +204,39 @@ const Navbar = () => {
                                     CONTACT
                                 </div>
                             </a>
-                            <div className="text-gray-dark">
-                                <Link to="/login">
-                                    <button
-                                        type="button"
-                                        className=" flex flex-row justify-center items-center gap-2 font-bold rounded-xl text-md px-6 py-2 text-center bg-textWhite  transition-transform duration-300 hover:scale-110 hover:text-sky-500"
-                                    >
-                                        <FiUser className="text-2xl" />
-                                        Log In
-                                    </button>
-                                </Link>
-                            </div>
+                            {isLoggedIn?<><div className="text-gray-dark"><button
+                    type="button"
+                    onClick={logoutHandler} 
+                    className=" flex flex-row justify-center items-center gap-2 font-bold rounded-xl text-md px-6 py-2 text-center bg-textWhite  transition-transform duration-300 hover:scale-110 hover:text-sky-500"
+                  >
+                    <FiUser className="text-2xl" />
+                    Log Out
+                  </button></div></>:<> <div className="text-gray-dark">
+                <Link to="/login">
+                  <button
+                    type="button"
+                    className=" flex flex-row justify-center items-center gap-2 font-bold rounded-xl text-md px-6 py-2 text-center bg-textWhite  transition-transform duration-300 hover:scale-110 hover:text-sky-500"
+                  >
+                    <FiUser className="text-2xl" />
+                    Log In
+                  </button>
+                </Link>
+              </div>
 
-                            <div className="mt-4 h-[2px] w-600 self-stretch bg-textWhite rounded-full"></div>
+              <div className="mt-4 h-[2px] w-600 self-stretch bg-textWhite rounded-full"></div>
 
-                            <div className="text-gray-dark">
-                                <Link to="/register">
-                                    <button
-                                        type="button"
-                                        className=" flex flex-row justify-center items-center gap-2 font-bold rounded-xl text-md px-6 py-2 text-center bg-textWhite -mt-4"
-                                    >
-                                        <FiUser className="text-2xl" />
-                                        Register
-                                    </button>
-                                </Link>
-                            </div>
+              <div className="text-gray-dark">
+                <Link to="/register">
+                  <button
+                    type="button"
+                    className=" flex flex-row justify-center items-center gap-2 font-bold rounded-xl text-md px-6 py-2 text-center bg-textWhite -mt-4"
+                  >
+                    <FiUser className="text-2xl" />
+                    Register
+                  </button>
+                </Link>
+              </div></>}
+                           
                             <GoogleTranslate />
                         </div>
                     </div>
@@ -251,23 +269,33 @@ const Navbar = () => {
                         </a>
                     </div>
                     <div className="flex md:order-2">
-                        <Link to="/login">
-                            <button
-                                type="button"
-                                className="navbar3 hidden md:block font-bold rounded-lg text-lg px-4 py-2 text-center mr-3 md:mr-0 transition-transform duration-300 hover:scale-[1.1] hover:text-green"
-                            >
-                                Login
-                            </button>
-                        </Link>
-                        <Link to="/register">
-                            <button
-                                type="button"
-                                className="navbar3 hidden md:flex flex-row justify-center items-center gap-2 font-bold rounded-xl text-md text-[#262626] px-4 py-2 text-center mr-3 md:mr-0  transition-transform duration-300 hover:scale-[1.1] hover:text-green"
-                            >
-                                <FiUser className="text-2xl" />
-                                Register
-                            </button>
-                        </Link>
+                    {isLoggedIn? <button
+            onClick={logoutHandler} 
+                type="button"
+                className="navbar3 hidden md:block font-bold rounded-lg text-lg px-4 py-2 text-center mr-3 md:mr-0 transition-transform duration-300 hover:scale-[1.1] hover:text-green"
+              >
+                Logout
+              </button>:<>
+              <Link to="/login">
+              <button
+                type="button"
+                className="navbar3 hidden md:block font-bold rounded-lg text-lg px-4 py-2 text-center mr-3 md:mr-0 transition-transform duration-300 hover:scale-[1.1] hover:text-green"
+              >
+                Login
+              </button>
+            </Link>
+            <Link to="/register">
+              <button
+                type="button"
+                className="navbar3 hidden md:flex flex-row justify-center items-center gap-2 font-bold rounded-xl text-md text-[#262626] px-4 py-2 text-center mr-3 md:mr-0  transition-transform duration-300 hover:scale-[1.1] hover:text-green"
+              >
+                <FiUser className="text-2xl" />
+                Register
+              </button>
+            </Link>
+              </>}
+                        
+                       
                         <GoogleTranslate />
                     </div>
                     <div className="hidden md:flex md:w-auto md:order-1" id="navbar-sticky">

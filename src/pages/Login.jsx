@@ -61,12 +61,11 @@ console.log("status after login",isLoggedIn)
           <div className="w-full h-[100vh] flex flex-col justify-start mt-20 lg:mt-0 lg:justify-center items-center">
             <TitleCard />
 
-            {/* Form using react-hook-form */}
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="mt-5 space-y-5 w-[70%] md:w-[50%] lg:w-[60%]"
             >
-              {/* Email Input */}
+         
               <Input
                 type="text"
                 placeholder="E-mail Address"

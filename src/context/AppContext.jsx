@@ -13,6 +13,7 @@ export default function AppcontextProvider({children}){
       alert("Invalid email or password.");
     }
  };
+ console.log(isLoggedIn)
     const value={
         isLoggedIn,setIsLoggedIn,onSubmit
     }    
