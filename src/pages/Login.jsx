@@ -31,8 +31,6 @@ export default function Login() {
     return allowedDomains.includes(domain);
   };
 
-  
-
   const {onSubmit,isLoggedIn}=useContext(Appcontext)
 console.log("status after login",isLoggedIn)
   return (
@@ -227,20 +225,20 @@ const TitleCard = () => {
         <span> </span>back!!
       </h2>
       <p className="text-center text-gray text-sm mt-1">
-        Please enter your details
+        Please login to your account
       </p>
     </div>
   );
 };
 
-const Input = React.forwardRef(({ ...rest }, ref) => {
+const Input = React.forwardRef((props, ref) => {
   return (
-    <div className="flex flex-col">
-      <input
-        {...rest}
-        ref={ref}
-        className="bg-[#FAFAFA] p-2 border border-[#dedede] outline-none rounded-xl focus:shadow-md"
-      />
-    </div>
+    <input
+      ref={ref}
+      className={`border border-gray-400 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primaryGreen ${props.className}`}
+      {...props}
+    />
   );
 });
+
+Input.displayName = "Input"; // This is necessary for forwardRef to work correctly

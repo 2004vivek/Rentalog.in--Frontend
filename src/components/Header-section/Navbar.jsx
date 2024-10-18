@@ -1,6 +1,6 @@
 import { FiUser } from "react-icons/fi";
 import { FiX } from "react-icons/fi";
-import { Link, useLocation } from "react-router-dom";
+import { Link} from "react-router-dom";
 import logo from "../../assets/Images/logo.png";
 import { useState, useEffect } from "react";
 import GoogleTranslate from "./GoogleTranslate";
@@ -9,11 +9,9 @@ import gsap from 'gsap'
 import { useContext } from "react";
 import { Appcontext } from "../../context/AppContext";
 const tl = gsap.timeline()
-
 const Navbar = () => {
     const [showMenu, setShowMenu] = useState("");
     const [doBlure, setDoBlure] = useState(false);
-    const [navLinkbgColor, setNavlinkbgColor] = useState(true);
     const [activeSection, setActiveSection] = useState("home"); // Track active section
     const sectionIds = ["home", "Service", "AboutUs", "ContactUs"]; // Section IDs
     const {isLoggedIn,setIsLoggedIn}=useContext(Appcontext)
@@ -21,7 +19,6 @@ const Navbar = () => {
   function logoutHandler(){
     setIsLoggedIn(false)
     navigate("/home")
-    
   }
   console.log(isLoggedIn)
     useEffect(() => {
@@ -257,8 +254,7 @@ const Navbar = () => {
                             : `absolute w-full h-full -z-20 bg-gray-light opacity-80`
                     }
                 ></div>
-
-                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-3">
                     <div className="flex flex-row justify-center items-center">
                         <a href="#home" aria-current="page">
                             <img
@@ -268,7 +264,7 @@ const Navbar = () => {
                             />
                         </a>
                     </div>
-                    <div className="flex md:order-2">
+                    <div className="flex md:order-2 justify-center items-center">
                     {isLoggedIn? <button
             onClick={logoutHandler} 
                 type="button"
